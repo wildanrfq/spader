@@ -6,14 +6,89 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		DC3600922EA2D268002AE48A /* HotSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = DC3600912EA2D268002AE48A /* HotSwiftUI */; };
+		DCC4F40C2F3C08A300B4CF49 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC4F40B2F3C08A300B4CF49 /* WidgetKit.framework */; };
+		DCC4F40E2F3C08A300B4CF49 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCC4F40D2F3C08A300B4CF49 /* SwiftUI.framework */; };
+		DCC4F41D2F3C08A400B4CF49 /* SpaderWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DCC4F4092F3C08A300B4CF49 /* SpaderWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DCC4F41B2F3C08A400B4CF49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC36005F2EA2CBDD002AE48A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCC4F4082F3C08A300B4CF49;
+			remoteInfo = SpaderWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DCC4F41E2F3C08A400B4CF49 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DCC4F41D2F3C08A400B4CF49 /* SpaderWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		DC3600672EA2CBDD002AE48A /* spader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = spader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC3600672EA2CBDD002AE48A /* Spader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCC4F4092F3C08A300B4CF49 /* SpaderWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SpaderWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCC4F40B2F3C08A300B4CF49 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		DCC4F40D2F3C08A300B4CF49 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		DCC4F4232F3C096B00B4CF49 /* SpaderWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpaderWidgetExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		DCC4F4212F3C08A400B4CF49 /* Exceptions for "SpaderWidget" folder in "SpaderWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = DCC4F4082F3C08A300B4CF49 /* SpaderWidgetExtension */;
+		};
+		DCC4F43A2F3C0D6600B4CF49 /* Exceptions for "spader" folder in "SpaderWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Core/Extensions/Color.swift,
+				Core/Models/JadwalKuliah.swift,
+				Widget/SpaderWidget.swift,
+				Widget/SpaderWidgetBundle.swift,
+			);
+			target = DCC4F4082F3C08A300B4CF49 /* SpaderWidgetExtension */;
+		};
+		DCC4F4412F3C119600B4CF49 /* Exceptions for "spader" folder in "spader" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Widget/SpaderWidget.swift,
+				Widget/SpaderWidgetBundle.swift,
+			);
+			target = DC3600662EA2CBDD002AE48A /* spader */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		DC3600692EA2CBDD002AE48A /* spader */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DCC4F4412F3C119600B4CF49 /* Exceptions for "spader" folder in "spader" target */,
+				DCC4F43A2F3C0D6600B4CF49 /* Exceptions for "spader" folder in "SpaderWidgetExtension" target */,
+			);
 			path = spader;
+			sourceTree = "<group>";
+		};
+		DCC4F40F2F3C08A300B4CF49 /* SpaderWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DCC4F4212F3C08A400B4CF49 /* Exceptions for "SpaderWidget" folder in "SpaderWidgetExtension" target */,
+			);
+			path = SpaderWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -23,6 +98,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC3600922EA2D268002AE48A /* HotSwiftUI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCC4F4062F3C08A300B4CF49 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DCC4F40E2F3C08A300B4CF49 /* SwiftUI.framework in Frameworks */,
+				DCC4F40C2F3C08A300B4CF49 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -32,7 +117,10 @@
 		DC36005E2EA2CBDD002AE48A = {
 			isa = PBXGroup;
 			children = (
+				DCC4F4232F3C096B00B4CF49 /* SpaderWidgetExtension.entitlements */,
 				DC3600692EA2CBDD002AE48A /* spader */,
+				DCC4F40F2F3C08A300B4CF49 /* SpaderWidget */,
+				DCC4F40A2F3C08A300B4CF49 /* Frameworks */,
 				DC3600682EA2CBDD002AE48A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -40,9 +128,19 @@
 		DC3600682EA2CBDD002AE48A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DC3600672EA2CBDD002AE48A /* spader.app */,
+				DC3600672EA2CBDD002AE48A /* Spader.app */,
+				DCC4F4092F3C08A300B4CF49 /* SpaderWidgetExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		DCC4F40A2F3C08A300B4CF49 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DCC4F40B2F3C08A300B4CF49 /* WidgetKit.framework */,
+				DCC4F40D2F3C08A300B4CF49 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -55,20 +153,45 @@
 				DC3600632EA2CBDD002AE48A /* Sources */,
 				DC3600642EA2CBDD002AE48A /* Frameworks */,
 				DC3600652EA2CBDD002AE48A /* Resources */,
+				DCC4F41E2F3C08A400B4CF49 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DCC4F41C2F3C08A400B4CF49 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				DC3600692EA2CBDD002AE48A /* spader */,
 			);
 			name = spader;
 			packageProductDependencies = (
+				DC3600912EA2D268002AE48A /* HotSwiftUI */,
 			);
 			productName = spader;
-			productReference = DC3600672EA2CBDD002AE48A /* spader.app */;
+			productReference = DC3600672EA2CBDD002AE48A /* Spader.app */;
 			productType = "com.apple.product-type.application";
+		};
+		DCC4F4082F3C08A300B4CF49 /* SpaderWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCC4F4222F3C08A400B4CF49 /* Build configuration list for PBXNativeTarget "SpaderWidgetExtension" */;
+			buildPhases = (
+				DCC4F4052F3C08A300B4CF49 /* Sources */,
+				DCC4F4062F3C08A300B4CF49 /* Frameworks */,
+				DCC4F4072F3C08A300B4CF49 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DCC4F40F2F3C08A300B4CF49 /* SpaderWidget */,
+			);
+			name = SpaderWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = SpaderWidgetExtension;
+			productReference = DCC4F4092F3C08A300B4CF49 /* SpaderWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -83,6 +206,9 @@
 					DC3600662EA2CBDD002AE48A = {
 						CreatedOnToolsVersion = 26.0.1;
 					};
+					DCC4F4082F3C08A300B4CF49 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
 				};
 			};
 			buildConfigurationList = DC3600622EA2CBDD002AE48A /* Build configuration list for PBXProject "spader" */;
@@ -94,18 +220,29 @@
 			);
 			mainGroup = DC36005E2EA2CBDD002AE48A;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				DC3600902EA2D268002AE48A /* XCRemoteSwiftPackageReference "HotSwiftUI" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DC3600682EA2CBDD002AE48A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				DC3600662EA2CBDD002AE48A /* spader */,
+				DCC4F4082F3C08A300B4CF49 /* SpaderWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		DC3600652EA2CBDD002AE48A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCC4F4072F3C08A300B4CF49 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +259,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DCC4F4052F3C08A300B4CF49 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DCC4F41C2F3C08A400B4CF49 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCC4F4082F3C08A300B4CF49 /* SpaderWidgetExtension */;
+			targetProxy = DCC4F41B2F3C08A400B4CF49 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DC3600702EA2CBDF002AE48A /* Debug */ = {
@@ -249,8 +401,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = spader.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 24764F59ZW;
+				EMIT_FRONTEND_COMMAND_LINES = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -263,8 +418,12 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-Xlinker",
+					"-interposable",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = wildanrfq.spader;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Spader;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
@@ -280,8 +439,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = spader.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 24764F59ZW;
+				EMIT_FRONTEND_COMMAND_LINES = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -295,10 +457,72 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = wildanrfq.spader;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Spader;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DCC4F41F2F3C08A400B4CF49 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = SpaderWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 24764F59ZW;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SpaderWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SpaderWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = wildanrfq.spader.SpaderWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DCC4F4202F3C08A400B4CF49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = SpaderWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 24764F59ZW;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SpaderWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SpaderWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = wildanrfq.spader.SpaderWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
@@ -327,7 +551,35 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		DCC4F4222F3C08A400B4CF49 /* Build configuration list for PBXNativeTarget "SpaderWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCC4F41F2F3C08A400B4CF49 /* Debug */,
+				DCC4F4202F3C08A400B4CF49 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DC3600902EA2D268002AE48A /* XCRemoteSwiftPackageReference "HotSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/johnno1962/HotSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DC3600912EA2D268002AE48A /* HotSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DC3600902EA2D268002AE48A /* XCRemoteSwiftPackageReference "HotSwiftUI" */;
+			productName = HotSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DC36005F2EA2CBDD002AE48A /* Project object */;
 }

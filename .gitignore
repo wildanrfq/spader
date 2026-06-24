@@ -1,0 +1,19 @@
+# Xcode
+*.xcuserstate
+xcuserdata/
+*.xccheckout
+*.moved-aside
+DerivedData/
+.build/
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Backup & archives
+spader_backup/
+spader.zip
+*.zip
+
+# HotSwiftUI (dev-only dependency)
+HotSwiftUI/
