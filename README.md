@@ -1,6 +1,20 @@
-# Spader
+<p align="center">
+  <img src="docs/icon.jpg" width="120" style="border-radius: 22px;" />
+</p>
 
-Spader adalah aplikasi manajemen jadwal kuliah berbasis iOS, dibuat khusus untuk mahasiswa UPN "Veteran" Yogyakarta. Aplikasi ini membantu kamu mengelola jadwal kuliah, tugas, dan catatan akademik dalam satu tempat, dengan tampilan yang bersih, notifikasi pintar, dan dukungan dua bahasa.
+<h1 align="center">Spader</h1>
+
+<p align="center">
+  Aplikasi manajemen jadwal kuliah untuk mahasiswa UPN "Veteran" Yogyakarta
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/iOS-17%2B-black?logo=apple&logoColor=white" />
+  <img src="https://img.shields.io/badge/Swift-5.9-orange?logo=swift&logoColor=white" />
+  <img src="https://img.shields.io/badge/SwiftUI-blue?logo=swift&logoColor=white" />
+  <img src="https://img.shields.io/badge/WidgetKit-supported-purple" />
+  <img src="https://img.shields.io/badge/license-MIT-green" />
+</p>
 
 ---
 
@@ -91,6 +105,12 @@ Spader adalah aplikasi manajemen jadwal kuliah berbasis iOS, dibuat khusus untuk
 4. Build & Run (`Cmd + R`)
 
 Tidak ada dependency eksternal yang perlu di-install via SPM, semua sudah tercakup di dalam proyek.
+
+---
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
