@@ -5,7 +5,7 @@
 <h1 align="center">Spader</h1>
 
 <p align="center">
-  Aplikasi manajemen jadwal kuliah untuk mahasiswa UPN "Veteran" Yogyakarta
+  iOS app for managing lecture schedules, assignments, and academic notes for UPN "Veteran" Yogyakarta students
 </p>
 
 <p align="center">
@@ -36,56 +36,56 @@
 
 ---
 
-## Fitur
+## Features
 
-### Jadwal Kuliah
-- Tampilkan seluruh jadwal kuliah yang dikelompokkan per hari
-- Filter jadwal untuk melihat kuliah hari ini saja
-- Highlight otomatis kelas yang sedang berlangsung atau akan dimulai berikutnya
-- Pencarian jadwal berdasarkan nama mata kuliah atau dosen
-- Setiap mata kuliah memiliki warna unik yang bisa dikustomisasi
-- Detail kuliah: nama matkul, dosen, ruangan, dan catatan pribadi
+### Lecture Schedule
+- View all schedules grouped by day
+- Filter to show only today's classes
+- Auto-highlight ongoing and upcoming classes
+- Search schedules by course name or lecturer
+- Each course has a customizable unique color
+- Course detail: name, lecturer, room, and personal notes
 
-### Input Jadwal
-- Import jadwal otomatis dari teks (format SIAKAD / copy-paste)
-- Input manual per mata kuliah jika diperlukan
-- Edit dan hapus jadwal kapan saja
+### Schedule Input
+- Auto-import schedule from text (SIAKAD format / copy-paste)
+- Manual input per course if needed
+- Edit and delete schedules anytime
 
-### Manajemen Tugas
-- Tambah tugas dengan judul, deskripsi, mata kuliah, deadline, dan prioritas (Rendah / Sedang / Tinggi)
-- Status tugas otomatis: Aktif, Selesai, atau Terlambat
-- Indikator waktu tersisa (menit, jam, hari)
-- Notifikasi pengingat deadline tugas dengan aksi "Tandai Selesai" langsung dari notifikasi
-- Filter tugas berdasarkan status
+### Task Management
+- Add tasks with title, description, course, deadline, and priority (Low / Medium / High)
+- Automatic task status: Active, Done, or Overdue
+- Time remaining indicator (minutes, hours, days)
+- Deadline reminder notifications with a "Mark as Done" action directly from the notification
+- Filter tasks by status
 
-### Kalender
-- Tampilan kalender bulanan
-- Tambah catatan pada tanggal tertentu
-- Lihat jadwal kuliah yang terjadwal pada hari yang dipilih
+### Calendar
+- Monthly calendar view
+- Add notes to specific dates
+- View scheduled courses on the selected day
 
-### Profil & IPK
-- Input nama pengguna dengan foto profil
-- Catat IPK per semester
-- Grafik perkembangan IPK antar semester (menggunakan Swift Charts)
+### Profile & GPA
+- Set username with profile photo
+- Record GPA per semester
+- GPA progress chart across semesters (using Swift Charts)
 
-### Notifikasi
-- Notifikasi pengingat sebelum kuliah dimulai
-- Konfigurasi jumlah pengingat (1–5 kali) dan jarak waktu antar pengingat
-- Notifikasi deadline tugas yang bisa langsung ditandai selesai
+### Notifications
+- Reminder notifications before class starts
+- Configure number of reminders (1–5 times) and interval between reminders
+- Deadline notifications that can be marked done directly from the notification
 
-### Tampilan & Bahasa
-- Dukungan mode gelap / terang / ikut sistem
-- Bilingual: Bahasa Indonesia dan English
-- Gradient background adaptif sesuai color scheme
+### Appearance & Language
+- Dark / light / system appearance support
+- Bilingual: Indonesian and English
+- Adaptive gradient background based on color scheme
 
 ### iOS Widget
-- Widget layar utama yang menampilkan jadwal kuliah hari ini
+- Home screen widget displaying today's lecture schedule
 
 ---
 
 ## Tech Stack
 
-| Komponen | Detail |
+| Component | Detail |
 |---|---|
 | Platform | iOS 17+ |
 | Language | Swift 5.9 |
@@ -97,14 +97,14 @@
 
 ---
 
-## Cara Build
+## Getting Started
 
-1. Clone repo ini
-2. Buka `spader.xcodeproj` di Xcode 15+
-3. Pilih target device atau simulator (iOS 17+)
+1. Clone this repo
+2. Open `spader.xcodeproj` in Xcode 15+
+3. Select a device or simulator (iOS 17+)
 4. Build & Run (`Cmd + R`)
 
-Tidak ada dependency eksternal yang perlu di-install via SPM, semua sudah tercakup di dalam proyek.
+No external dependencies need to be installed via SPM — everything is included in the project.
 
 ---
 
@@ -116,4 +116,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Developer
 
-Dibuat oleh **Wildan Rifqi** — Mahasiswa Informatika, UPN "Veteran" Yogyakarta.
+Built by **Wildan Rifqi** — Informatics student at UPN "Veteran" Yogyakarta.
