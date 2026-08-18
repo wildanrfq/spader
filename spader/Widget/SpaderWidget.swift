@@ -12,29 +12,121 @@ import SwiftUI
 struct ScheduleEntry: TimelineEntry {
     let date: Date
     let schedules: [JadwalKuliah]
+    let title: String
 }
 
 // MARK: - Widget Provider
 struct ScheduleProvider: TimelineProvider {
     func placeholder(in context: Context) -> ScheduleEntry {
-        ScheduleEntry(date: Date(), schedules: [])
+        ScheduleEntry(date: Date(), schedules: [], title: "Jadwal Hari Ini")
     }
     
     func getSnapshot(in context: Context, completion: @escaping (ScheduleEntry) -> Void) {
-        let entry = ScheduleEntry(date: Date(), schedules: loadSchedules())
+        let entry = ScheduleEntry(date: Date(), schedules: loadSchedules(), title: "Jadwal Hari Ini")
         completion(entry)
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<ScheduleEntry>) -> Void) {
         let currentDate = Date()
-        let schedules = loadSchedules()
+        let calendar = Calendar.current
         
-        // Update every hour
-        let nextUpdate = Calendar.current.date(byAdding: .hour, value: 1, to: currentDate)!
-        let entry = ScheduleEntry(date: currentDate, schedules: schedules)
-        let timeline = Timeline(entries: [entry], policy: .after(nextUpdate))
+        // Load all schedules
+        guard let data = UserDefaults(suiteName: "group.com.wildanrfq.spader")?.data(forKey: "savedJadwalList"),
+              let allSchedules = try? JSONDecoder().decode([JadwalKuliah].self, from: data) else {
+            let entry = ScheduleEntry(date: currentDate, schedules: [], title: "Jadwal Hari Ini")
+            let timeline = Timeline(entries: [entry], policy: .after(calendar.date(byAdding: .hour, value: 1, to: currentDate)!))
+            completion(timeline)
+            return
+        }
         
+        var entries: [ScheduleEntry] = []
+        
+        let todayName = getDayName(for: currentDate)
+        let todaySchedules = getSchedules(for: todayName, allSchedules: allSchedules)
+        
+        let tomorrowDate = calendar.date(byAdding: .day, value: 1, to: currentDate)!
+        let tomorrowName = getDayName(for: tomorrowDate)
+        let tomorrowSchedules = getSchedules(for: tomorrowName, allSchedules: allSchedules)
+        
+        var showTomorrowNow = false
+        var transitionDate: Date? = nil
+        
+        if let lastSchedule = todaySchedules.last,
+           let lastScheduleEndTime = getEndTimeOfSchedule(on: currentDate, schedule: lastSchedule.jadwal) {
+            if currentDate >= lastScheduleEndTime {
+                showTomorrowNow = true
+            } else {
+                transitionDate = lastScheduleEndTime
+            }
+        } else {
+            // Today has no schedules, so we can immediately show tomorrow's schedules
+            showTomorrowNow = true
+        }
+        
+        if showTomorrowNow {
+            entries.append(ScheduleEntry(date: currentDate, schedules: tomorrowSchedules, title: "Jadwal Besok"))
+        } else {
+            entries.append(ScheduleEntry(date: currentDate, schedules: todaySchedules, title: "Jadwal Hari Ini"))
+            if let transitionDate = transitionDate {
+                entries.append(ScheduleEntry(date: transitionDate, schedules: tomorrowSchedules, title: "Jadwal Besok"))
+            }
+        }
+        
+        // Midnight transition
+        var midnightComponents = calendar.dateComponents([.year, .month, .day], from: tomorrowDate)
+        midnightComponents.hour = 0
+        midnightComponents.minute = 0
+        midnightComponents.second = 0
+        if let midnight = calendar.date(from: midnightComponents) {
+            let midnightSchedules = getSchedules(for: getDayName(for: midnight), allSchedules: allSchedules)
+            entries.append(ScheduleEntry(date: midnight, schedules: midnightSchedules, title: "Jadwal Hari Ini"))
+        }
+        
+        // Refresh policy: 1 hour after midnight of tomorrowDate
+        let refreshDate = calendar.date(byAdding: .hour, value: 1, to: calendar.startOfDay(for: tomorrowDate))!
+        let timeline = Timeline(entries: entries, policy: .after(refreshDate))
         completion(timeline)
+    }
+    
+    private func getSchedules(for day: String, allSchedules: [JadwalKuliah]) -> [JadwalKuliah] {
+        return allSchedules.filter { $0.jadwal.contains(day) }
+            .sorted { extractTimeInMinutes(from: $0.jadwal) < extractTimeInMinutes(from: $1.jadwal) }
+    }
+    
+    private func getDayName(for date: Date) -> String {
+        let calendar = Calendar.current
+        let weekday = calendar.component(.weekday, from: date)
+        let dayMapping = [1: "Minggu", 2: "Senin", 3: "Selasa", 4: "Rabu",
+                          5: "Kamis", 6: "Jumat", 7: "Sabtu"]
+        return dayMapping[weekday] ?? "Senin"
+    }
+    
+    private func getEndTimeOfSchedule(on date: Date, schedule: String) -> Date? {
+        guard let regex = try? NSRegularExpression(pattern: "(\\d{1,2}):(\\d{2})") else { return nil }
+        let matches = regex.matches(in: schedule, range: NSRange(schedule.startIndex..., in: schedule))
+        
+        let timeMatch: NSTextCheckingResult
+        if matches.count >= 2 {
+            timeMatch = matches[1]
+        } else if matches.count == 1 {
+            timeMatch = matches[0]
+        } else {
+            return nil
+        }
+        
+        guard let hourRange = Range(timeMatch.range(at: 1), in: schedule),
+              let minuteRange = Range(timeMatch.range(at: 2), in: schedule),
+              let hour = Int(schedule[hourRange]),
+              let minute = Int(schedule[minuteRange]) else {
+            return nil
+        }
+        
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([.year, .month, .day], from: date)
+        components.hour = hour
+        components.minute = minute
+        components.second = 0
+        return calendar.date(from: components)
     }
     
     private func loadSchedules() -> [JadwalKuliah] {
@@ -43,18 +135,13 @@ struct ScheduleProvider: TimelineProvider {
             return []
         }
         
-        // Filter for today's schedules
         let today = getCurrentDay()
         return schedules.filter { $0.jadwal.contains(today) }
             .sorted { extractTimeInMinutes(from: $0.jadwal) < extractTimeInMinutes(from: $1.jadwal) }
     }
     
     private func getCurrentDay() -> String {
-        let calendar = Calendar.current
-        let weekday = calendar.component(.weekday, from: Date())
-        let dayMapping = [1: "Minggu", 2: "Senin", 3: "Selasa", 4: "Rabu",
-                          5: "Kamis", 6: "Jumat", 7: "Sabtu"]
-        return dayMapping[weekday] ?? "Senin"
+        return getDayName(for: Date())
     }
     
     private func extractTimeInMinutes(from schedule: String) -> Int {
@@ -80,7 +167,7 @@ struct SpaderWidgetEntryView: View {
         if widgetFamily == .accessoryRectangular {
             LockScreenWidgetView(entry: entry)
         } else {
-            HomeScreenWidgetView(entry: entry, isSmall: widgetFamily == .systemSmall)
+            HomeScreenWidgetView(entry: entry, widgetFamily: widgetFamily)
         }
     }
 }
@@ -149,10 +236,27 @@ struct LockScreenWidgetView: View {
     }
 }
 
-// MARK: - Home Screen Widget (small & medium)
+// MARK: - Home Screen Widget (small, medium, large)
 struct HomeScreenWidgetView: View {
     let entry: ScheduleEntry
-    let isSmall: Bool
+    let widgetFamily: WidgetFamily
+    
+    private var isSmall: Bool {
+        widgetFamily == .systemSmall
+    }
+    
+    private var maxSchedulesCount: Int {
+        switch widgetFamily {
+        case .systemSmall:
+            return 1
+        case .systemMedium:
+            return 3
+        case .systemLarge:
+            return 4
+        default:
+            return 3
+        }
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: isSmall ? 3 : 4) {
@@ -160,7 +264,7 @@ struct HomeScreenWidgetView: View {
             HStack(spacing: 4) {
                 Image(systemName: "calendar")
                     .font(.system(size: isSmall ? 11 : 12))
-                Text("Jadwal Hari Ini")
+                Text(entry.title)
                     .font(.system(size: isSmall ? 11 : 12, weight: .semibold))
                 Spacer()
             }
@@ -178,14 +282,14 @@ struct HomeScreenWidgetView: View {
                 .foregroundColor(.white.opacity(0.8))
                 Spacer()
             } else {
-                VStack(spacing: isSmall ? 3 : 4) {
-                    ForEach(entry.schedules.prefix(isSmall ? 1 : 3)) { schedule in
+                VStack(alignment: .leading, spacing: isSmall ? 3 : 4) {
+                    ForEach(entry.schedules.prefix(maxSchedulesCount)) { schedule in
                         ScheduleRowWidget(schedule: schedule, isSmall: isSmall)
                     }
                 }
                 
-                if entry.schedules.count > (isSmall ? 1 : 3) {
-                    Text("+\(entry.schedules.count - (isSmall ? 1 : 3)) lainnya")
+                if entry.schedules.count > maxSchedulesCount {
+                    Text("+\(entry.schedules.count - maxSchedulesCount) lainnya")
                         .font(.system(size: 8))
                         .foregroundColor(.white.opacity(0.7))
                         .padding(.top, 1)
@@ -238,6 +342,7 @@ struct ScheduleRowWidget: View {
         }
         .padding(.horizontal, isSmall ? 5 : 6)
         .padding(.vertical, isSmall ? 4 : 5)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.white.opacity(0.2))
         .cornerRadius(5)
     }
@@ -289,7 +394,7 @@ struct SpaderWidget: Widget {
         }
         .configurationDisplayName("Jadwal Kuliah")
         .description("Lihat jadwal kuliah hari ini")
-        .supportedFamilies([.systemSmall, .systemMedium, .accessoryRectangular])
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .accessoryRectangular])
         // Optional: This allows your background to fill the entire widget area
         .contentMarginsDisabled()
     }
@@ -302,7 +407,7 @@ struct SpaderWidget: Widget {
     ScheduleEntry(date: Date(), schedules: [
         JadwalKuliah(namaMataKuliah: "Basis Data (IF-A1)", jadwal: "Senin 10:00 - 12:00 Patt.I-3A", dosen: "Dr. Test"),
         JadwalKuliah(namaMataKuliah: "Algoritma (IF-B2)", jadwal: "Senin 13:00 - 15:00 Patt.II-3B", dosen: "Dr. Test2")
-    ])
+    ], title: "Jadwal Hari Ini")
 }
 
 #Preview(as: .systemMedium) {
@@ -311,7 +416,19 @@ struct SpaderWidget: Widget {
     ScheduleEntry(date: Date(), schedules: [
         JadwalKuliah(namaMataKuliah: "Basis Data (IF-A1)", jadwal: "Senin 10:00 - 12:00 Patt.I-3A", dosen: "Dr. Test"),
         JadwalKuliah(namaMataKuliah: "Algoritma (IF-B2)", jadwal: "Senin 13:00 - 15:00 Patt.II-3B", dosen: "Dr. Test2")
-    ])
+    ], title: "Jadwal Hari Ini")
+}
+
+#Preview(as: .systemLarge) {
+    SpaderWidget()
+} timeline: {
+    ScheduleEntry(date: Date(), schedules: [
+        JadwalKuliah(namaMataKuliah: "Basis Data (IF-A1)", jadwal: "Senin 10:00 - 12:00 Patt.I-3A", dosen: "Dr. Test"),
+        JadwalKuliah(namaMataKuliah: "Algoritma (IF-B2)", jadwal: "Senin 13:00 - 15:00 Patt.II-3B", dosen: "Dr. Test2"),
+        JadwalKuliah(namaMataKuliah: "Struktur Data (IF-C3)", jadwal: "Senin 15:30 - 17:30 Patt.III-3C", dosen: "Dr. Test3"),
+        JadwalKuliah(namaMataKuliah: "Jaringan Komputer (IF-D4)", jadwal: "Senin 18:00 - 20:00 Patt.IV-3D", dosen: "Dr. Test4"),
+        JadwalKuliah(namaMataKuliah: "Pemrograman Web (IF-E5)", jadwal: "Senin 20:00 - 22:00 Patt.V-3E", dosen: "Dr. Test5")
+    ], title: "Jadwal Hari Ini")
 }
 
 #Preview(as: .accessoryRectangular) {
@@ -319,5 +436,5 @@ struct SpaderWidget: Widget {
 } timeline: {
     ScheduleEntry(date: Date(), schedules: [
         JadwalKuliah(namaMataKuliah: "Basis Data (IF-A1)", jadwal: "Senin 10:00 - 12:00 Patt.I-3A", dosen: "Dr. Test")
-    ])
+    ], title: "Jadwal Hari Ini")
 }
